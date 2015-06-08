@@ -1,5 +1,5 @@
 var BLEACH = ( function() {
-	// Create new XHR
+	// Create a new XHR
 	var createXHR = function( url, options ) {
 		// Create new XMLHttpRequest instance
 		var xhr = new XMLHttpRequest();
@@ -46,6 +46,7 @@ var BLEACH = ( function() {
 		};
 
 		xhr.open( options.method, url, true );
+		return xhr;
 	};
 
 	return {
@@ -59,6 +60,10 @@ var BLEACH = ( function() {
 			}
 
 			newXHR.send( options.data );
+
+			console.log( "Data sent!" ); // DEBUGGING
+			console.log( newXHR ); // DEBUGGING
+			console.log( createXHR ); // DEBUGGING
 		}
 	}
 } )();

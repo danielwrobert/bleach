@@ -1,7 +1,6 @@
-var BLEACH = ( function() {
-	// Create new XHR
-	var createXHR = function( url, options ) {
-		// Create new XMLHttpRequest instance
+var BLEACH = {
+	createXHR: function( url, options ) {
+		// Create new XHR instance
 		var xhr = new XMLHttpRequest();
 
 		// Set up optional options data to pass to server
@@ -46,19 +45,18 @@ var BLEACH = ( function() {
 		};
 
 		xhr.open( options.method, url, true );
-	};
+		return xhr;
+	},
 
-	return {
-		ajax: function( url, options ) {
-			var newXHR = createXHR( url, options );
+	ajax: function( url, options ) {
+		var newXHR = this.createXHR( url, options );
 
-			newXHR.setRequestHeader( "X-Requested-With", "XMLHttpRequest" );
+		newXHR.setRequestHeader( "X-Requested-With", "XMLHttpRequest" );
 
-			if ( options.method.toUpperCase() === "POST" ) {
-				newXHR.setRequestHeader( "Content-Type", "application/x-www-form-urlencode" );
-			}
-
-			newXHR.send( options.data );
+		if ( options.method.toUpperCase() === "POST" ) {
+			newXHR.setRequestHeader( "Content-Type", "application/x-www-form-urlencode" );
 		}
+
+		newXHR.send( options.data );
 	}
-} )();
+};
