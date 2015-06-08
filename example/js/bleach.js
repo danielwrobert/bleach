@@ -1,9 +1,8 @@
 var BLEACH = ( function() {
-	// Create a new XHR
-	var createXHR = function( url, options ) {
-		// Create new XMLHttpRequest instance
-		var xhr = new XMLHttpRequest();
+	// Create new XMLHttpRequest instance
+	var xhr = new XMLHttpRequest();
 
+	var createXHR = function( url, options ) {
 		// Set up optional options data to pass to server
 		options = options || {};
 		options.method = options.method || "GET";
@@ -23,15 +22,22 @@ var BLEACH = ( function() {
 			url += "?_=" + new Date().getTime();
 		}
 
+		console.log( "Logging xhr variable:" ); // DEBUGGING
+		console.log( xhr ); // DEBUGGING
 		xhr.onreadystatechange = function() {
-			if ( xhr.readystate === 1 ) {
+			console.log( "Logging xhr.readyState:" ); // DEBUGGING
+			console.log( xhr.readyState ); // DEBUGGING
+
+			if ( xhr.readyState === 1 ) {
 				if ( options.before ) {
 					options.before.call( xhr );
 				}
 			}
 
-			if ( ( xhr.readystate === 4 ) && ( xhr.status === 200 || xhr.status === 304 ) ) {
+			if ( ( xhr.readyState === 4 ) && ( xhr.status === 200 || xhr.status === 304 ) ) {
 				var contentType = xhr.getResponseHeader( "Content-Type" );
+				console.log( "Logging response header content-type:" ); // DEBUGGING
+				console.log( contentType ); // DEBUGGING
 
 				if ( options.complete ) {
 					if ( contentType === "application/json;charset=UTF-8" ) {
@@ -61,8 +67,9 @@ var BLEACH = ( function() {
 
 			newXHR.send( options.data );
 
-			console.log( "Data sent!" ); // DEBUGGING
+			console.log( "Logging newXHR variable from ajax method:" ); // DEBUGGING
 			console.log( newXHR ); // DEBUGGING
+			console.log( "Logging createXHR variable from ajax method:" ); // DEBUGGING
 			console.log( createXHR ); // DEBUGGING
 		}
 	}

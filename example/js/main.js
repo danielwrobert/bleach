@@ -4,7 +4,9 @@
 
 	var linkClick = function( evt ) {
 		console.log( "Clicked!" ); // DEBUGGING
+		console.log( "Logging bleach object from event handler:"); // DEBUGGING
 		console.log( bleach ); // DEBUGGING
+		console.log( "Logging bleach.ajax method from event handler:"); // DEBUGGING
 		console.log( bleach.ajax ); // DEBUGGING
 
 		evt.preventDefault();
@@ -13,7 +15,11 @@
 			method: "GET",
 			cache: false,
 			complete: function( response ) {
+				var respElem = document.getElementById( 'ajax-response' );
+				console.log( "Logging returned Ajax response:" );
 				console.log( response );
+
+				respElem.innerHTML = response;
 
 				console.log( "HALP!" ); // DEBUGGING
 			}
